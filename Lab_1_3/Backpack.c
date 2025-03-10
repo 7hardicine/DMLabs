@@ -6,26 +6,36 @@
 
 int Backpack(int A[], int max, int size)
 {
-	int mask = 0;
-	int size_ = 1 << size;
-	for (int i = 0; i < size_; i++)
+	int var_count = 1 << size;
+	int max_weight_index = 0;
+	int max_weight = 0;
+	for (int i = 0; i < var_count; i++)
 	{
 		int S = 0;
 		int sdvig = 1;
 		for (int j = 0; j < size; j++)
 		{
-			int temp = mask & sdvig;
+			int temp = i & sdvig;
 			temp >= 1 ? S += A[j] : S;
 			sdvig = sdvig << 1;
 		}
-		printf_s("S = %d mask = %d\n", S, mask);
-		mask += 1;
+		if (S <= max && S > max_weight)
+		{
+			max_weight_index = i;
+			max_weight = S;
+		}
+		printf_s("#%d S = %d\n", i, S);
 	}
-}
 
-int GetBit()
-{
-
+	printf_s("Не превысив допустимый вес в рюкзак можно впихнуть предметы: ");
+	int sdvig = 1;
+	for (int i = 0; i < size; i++)
+	{
+		int temp = max_weight & sdvig;
+		temp >= 1 ? printf_s("#%d с весом %d ", i, A[i]) : temp;
+		sdvig = sdvig << 1;
+	}
+	puts("");
 }
 
 void main()
