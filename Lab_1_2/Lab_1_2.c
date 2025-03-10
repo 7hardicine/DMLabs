@@ -9,15 +9,11 @@
 
 int MoveBitAndSquare(int a)
 {
-	bool mask = pow(2, sizeof(a));
-	printf_s("%d", mask);
-	for (int i = 0; i < sizeof(a) * 8; i++)
-	{
-		if ((mask >> i) == (bool)a)
-		{
-			printf("Да %d", i);
-		}
-	}
+	int mask = 1;
+	int i = 0;
+	printf_s("%d\n", a);
+	a = a | mask;
+	printf_s("%d\n", a);
 }
 
 int input_uint(char query[])
