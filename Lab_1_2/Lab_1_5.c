@@ -7,7 +7,7 @@
 
 // Взять квадрат числа, если сдвинуть самый левый разряд на 1
 
-int MoveBitAndSquare(int a)
+void MoveBitAndSquare(int a)
 {
 	int mask = 1 << (sizeof(a) - 1);
 	while ((a & mask) == 0)

@@ -4,17 +4,14 @@
 #include <locale.h>
 #include <Windows.h>
 
-extern int toggleBit(int bits, int bitNumber)
+void toBinary(int a)
 {
-	GetBit(bits, bitNumber) == 1 ? (bits = bits & (~(1 << bitNumber))) : (bits = bits | (1 << bitNumber));
-	return bits;
-}
-
-int GetBit(int num, int i)
-{
-	int bit = 0;
-	(num & (1 << i)) > 0 ? bit = 1 : bit;
-	return bit;
+	while (a != 0)
+	{
+		printf_s("%d", a % 2);
+		a = a / 2;
+	}
+	puts("");
 }
 
 int input_uint(char query[])
@@ -36,9 +33,7 @@ void main()
 	SetConsoleOutputCP(1251);
 
 	int a = input_uint("¬ведите число a:");
-	int i = input_uint("¬ведите номер бита, который хотите заменить на противоположный:");
-	a = toggleBit(a, i);
-	printf_s("a = %d\n", a);
+	toBinary(a);
 
 	system("pause");
 }
