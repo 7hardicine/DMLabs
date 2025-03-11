@@ -9,21 +9,24 @@ int Backpack(int A[], int B[], int max, int size)
 	int var_count = 1 << size;
 	int max_weight_index = 0;
 	int max_weight = 0;
+	int max_count = 0;
 	for (int i = 0; i < var_count; i++)
 	{
-		int S = 0;
+		int S1 = 0;
+		int S2 = 0;
 		for (int j = 0; j < size; j++)
 		{
-			GetBit(i, j) == 1 ? S += A[j] : S;
+			GetBit(i, j) == 1 ? S1 += A[j], S2 += B[j] : S1;
 		}
-		(S <= max && S > max_weight) ? max_weight_index = i, max_weight = S : max_weight;
-		printf_s("#%d S = %d\n", i, S);
+		(S1 <= max && S1 > max_weight && S2 > max_count) ? max_weight_index = i, max_weight = S1, max_count = S2 : max_weight;
+		printf_s("#%d S1 = %d S2 = %d \n", i, S1, S2);
 	}
 
 	printf_s("Не превысив допустимый вес в рюкзак можно впихнуть предметы: ");
 	for (int i = 0; i < size; i++)
 	{
-		GetBit(max_weight_index, i) == 1 ? printf_s("#%d с весом %d; ", i + 1, A[i]) : i;
+		GetBit(max_weight_index, i) == 1 ? printf_s("#%d с весом %d и стоимостью %d", i + 1, A[i], B[i]) :
+			i;
 	}
 	puts("");
 }
