@@ -7,26 +7,34 @@
 
 // Взять квадрат числа, если сдвинуть самый левый разряд на 1
 
-void MoveBitAndSquare(int a)
+int MoveBitAndSquare(int a)
 {
 	int mask = 1 << (sizeof(a) - 1);
 	while ((a & mask) == 0)
 	{
 		mask = mask >> 1;
 	}
-	printf_s("%d\n", (mask << 1)*(mask << 1));
+	return ((mask << 1)*(mask << 1));
 }
 
-int input_uint(char query[])
+struct test
 {
-	printf("%s ", query);
-	int number;
-	while (scanf_s("%d", &number) == 0 || number <= 0)
+	int a;
+	int final;
+	int waiting_final;
+};
+
+void Testing()
+{
+	struct test tests[3] =
+	{ {7, 0, 64}, {2, 0, 16}, {10, 0, 256} };
+
+	for (int i = 0; i < 3; i++)
 	{
-		while (getchar() != '\n');
-		puts("Вы ввели что-то не так, повторите попытку...");
+		tests[i].final = MoveBitAndSquare(tests[i].a);
+		printf_s("a = %d, result = %d, waiting result = %d\n", \
+			tests[i].a, tests[i].final, tests[i].waiting_final);
 	}
-	return number;
 }
 
 void main()
@@ -35,8 +43,7 @@ void main()
 	SetConsoleCP(1251);
 	SetConsoleOutputCP(1251);
 
-	int a = input_uint("Введите число a:");
-	MoveBitAndSquare(a);
+	Testing();
 
 	system("pause");
 }

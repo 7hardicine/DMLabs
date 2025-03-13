@@ -10,16 +10,25 @@ extern int xorBitSet(int b1, int b2)
 	return result;
 }
 
-int input_uint(char query[])
+struct test
 {
-	printf("%s ", query);
-	int number;
-	while (scanf_s("%d", &number) == 0 || number < 0)
+	int a;
+	int k;
+	int final;
+	int waiting_final;
+};
+
+void Testing()
+{
+	struct test tests[3] =
+	{ {7, 3, 0, 4}, {2, 9, 0, 11}, {10, 3, 0, 9} };
+
+	for (int i = 0; i < 3; i++)
 	{
-		while (getchar() != '\n');
-		puts("Вы ввели что-то не так, повторите попытку...");
+		tests[i].final = xorBitSet(tests[i].a, tests[i].k);
+		printf_s("a = %d, k = %d, result = %d, waiting result = %d\n", \
+			tests[i].a, tests[i].k, tests[i].final, tests[i].waiting_final);
 	}
-	return number;
 }
 
 void main()
@@ -28,10 +37,7 @@ void main()
 	SetConsoleCP(1251);
 	SetConsoleOutputCP(1251);
 
-	int b1 = input_uint("Введите число b1:");
-	int b2 = input_uint("Введите число b2:");
-	int result = xorBitSet(b1, b2);
-	printf_s("a = %d\n", result);
+	Testing();
 
 	system("pause");
 }

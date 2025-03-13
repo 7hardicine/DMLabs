@@ -4,6 +4,27 @@
 #include <locale.h>
 #include <Windows.h>
 
+struct test
+{
+	int a;
+	int k;
+	int final;
+	int waiting_final;
+};
+
+void Testing()
+{
+	struct test tests[3] =
+	{ {15, 2, 0, 11}, {6, 0, 0, 7}, {10, 3, 0, 2} };
+
+	for (int i = 0; i < 3; i++)
+	{
+		tests[i].final = toggleBit(tests[i].a, tests[i].k);
+		printf_s("a = %d, k = %d, result = %d, waiting result = %d\n", \
+			tests[i].a, tests[i].k, tests[i].final, tests[i].waiting_final);
+	}
+}
+
 extern int toggleBit(int bits, int bitNumber)
 {
 	GetBit(bits, bitNumber) == 1 ? (bits = bits & (~(1 << bitNumber))) : (bits = bits | (1 << bitNumber));
@@ -17,28 +38,13 @@ int GetBit(int num, int i)
 	return bit;
 }
 
-int input_uint(char query[])
-{
-	printf("%s ", query);
-	int number;
-	while (scanf_s("%d", &number) == 0 || number < 0)
-	{
-		while (getchar() != '\n');
-		puts("Вы ввели что-то не так, повторите попытку...");
-	}
-	return number;
-}
-
 void main()
 {
 	setlocale(LC_ALL, "rus");
 	SetConsoleCP(1251);
 	SetConsoleOutputCP(1251);
 
-	int a = input_uint("Введите число a:");
-	int i = input_uint("Введите номер бита, который хотите заменить на противоположный:");
-	a = toggleBit(a, i);
-	printf_s("a = %d\n", a);
+	Testing();
 
 	system("pause");
 }
